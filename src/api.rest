@@ -1,0 +1,91 @@
+### Consulta todas las citas
+GET http://localhost:3000/citas
+
+### Consulta una cita
+GET http://localhost:3000/citas/1
+
+### Agregar una cita
+POST http://localhost:3000/citas
+Content-Type: application/json
+
+{
+"id_psicologo": 1,
+"id_alumno": "1222100444",
+"id_consultorio": 1,
+"tipo_consulta": "Psicológica",
+"motivo": "mi novio no me quiere pasar la tarea :((",
+"fecha_propuesta": "2023-07-23T06:00:00.000Z",
+"hora_propuesta": "12:00:00",
+"estatus": "Solicitada"
+}
+
+### Actualizar una Cita
+PUT http://localhost:3000/citas/2
+Content-Type: application/json
+
+{
+"id_cita": 2,
+"id_psicologo": 1,
+"id_alumno": "1222100444",
+"id_consultorio": 1,
+"tipo_consulta": "Psicológica",
+"motivo": "mi novio no me quiere pasar la tarea :((",
+"fecha_propuesta": "2023-07-23T06:00:00.000Z",
+"hora_propuesta": "13:00:00",
+"estatus": "Solicitada"
+}
+
+### Eliminar una cita
+DELETE http://localhost:3000/citas/2
+
+### Autenticar la credencial
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "usuario": "yo",
+  "password": "111"
+}
+
+### Consulta todos los registros de alumnos
+GET http://localhost:3000/registro
+
+### Consulta un registro de alumno
+GET http://localhost:3000/registro/1
+
+### Agregar un nuevo registro
+POST http://localhost:3000/registro
+Content-Type: application/json
+
+{
+"id_alumno": 2,
+"nombre": "Jassiel Noe",
+"ape_paterno": "Manuel",
+"ape_materno": "Martínez",
+"telefono": "0000000",
+"e_mail": "jassielnoe@gmail.com",
+"id_carrera": 1,
+"grupo": "GDS0534",
+"password": "123",
+"usuario": "jasielnoe"
+}
+
+### Actualizar un registro
+PUT http://localhost:3000/registro/2
+Content-Type: application/json
+
+{
+"id_alumno": 2,
+"nombre": "Jassiel Noe",
+"ape_paterno": "Manuel",
+"ape_materno": "Martínez",
+"telefono": "0000000",
+"e_mail": "jassielnoe@gmail.com",
+"id_carrera": 1,
+"grupo": "GDS0534",
+"password": "123",
+"usuario": "jasielnoe"
+}
+
+### Eliminar un registro de alumno
+DELETE http://localhost:3000/registro/2
