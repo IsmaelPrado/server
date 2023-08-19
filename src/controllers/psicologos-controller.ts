@@ -3,7 +3,7 @@ import {pool} from "../database";
 
 class PsicologosController {
 async getPsicologos(req:Request, res:Response) {
-const result = await pool.query('SELECT * FROM tb_psicologos');
+const result = await pool.query ('SELECT * FROM tb_psicologos');
 res.json(result[0]);
 }
 

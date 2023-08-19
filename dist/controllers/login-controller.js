@@ -27,11 +27,6 @@ class LoginController {
                 const [alumnoRows] = yield database_1.pool.query('SELECT * FROM tb_alumnos WHERE id_alumno = ?', [usuario]);
                 const [psicologoRows] = yield database_1.pool.query('SELECT * FROM tb_psicologos WHERE id_psicologo = ?', [usuario]);
                 let user = null;
-                /*if (alumnoRows.length > 0) {
-                user = alumnoRows[0] as Usuario;
-              } else if (psicologoRows.length > 0) {
-                user = psicologoRows[0] as Usuario;
-              }*/
                 if (alumnoRows.length > 0) {
                     user = alumnoRows[0];
                 }
@@ -39,25 +34,18 @@ class LoginController {
                     user = psicologoRows[0];
                 }
                 if (!user) {
-                    return res.status(401).json({ message: "Usuario incorrecto" });
+                    return res.status(401).json({ message: "Credenciales incorrectas" });
                 }
+                // Verificar la contraseña (asegúrate de que se almacene de forma segura y utiliza bcrypt)
                 if (user.password !== password) {
-                    return res.status(401).json({ message: "Contraseña incorrecta" });
+                    return res.status(401).json({ message: "Credenciales incorrectas" });
                 }
                 // Redirigir al home correspondiente
                 if (alumnoRows.length > 0) {
-                    res.json({
-                        message: "Inicio de sesión exitoso como alumno",
-                        redirectTo: "agendar-cita",
-                        nombre: user === null || user === void 0 ? void 0 : user.nombre
-                    });
+                    res.json({ message: "Inicio de sesión exitoso como alumno", redirectTo: "agendar-cita" });
                 }
                 else if (psicologoRows.length > 0) {
-                    res.json({
-                        message: "Inicio de sesión exitoso como psicólogo",
-                        redirectTo: "home-personal",
-                        nombre: user === null || user === void 0 ? void 0 : user.nombre
-                    });
+                    res.json({ message: "Inicio de sesión exitoso como psicólogo", redirectTo: "home-personal" });
                 }
             }
             catch (error) {

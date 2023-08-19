@@ -27,19 +27,35 @@ class LoginController {
         [usuario]
       );
 
-      // Verificar si se encontró un número de control con ese nombre de usuario
-      const user = rows[0] as Usuario; // Conversión explícita del tipo a Usuario
-      if (!user) {
-        return res.status(401).json({ message: "Nombre de usuario incorrecto" });
-      }
+      const [psicologoRows] = await pool.query<RowDataPacket[]>(
+        'SELECT * FROM tb_psicologos WHERE id_psicologo = ?',
+        [usuario]
+      );
 
-      // Verificar la contraseña (asumiendo que se ha almacenado de forma segura con bcrypt)
-      if (user.password !== password) {
-        return res.status(401).json({ message: "Contraseña incorrecta" });
-      }
+      let user = null;
 
-      // Autenticación exitosa, enviar un mensaje de inicio de sesión exitoso
-      res.json({ message: "Inicio de sesión exitoso" });
+      if (alumnoRows.length > 0) {
+      user = alumnoRows[0] as Usuario;
+    } else if (psicologoRows.length > 0) {
+      user = psicologoRows[0] as Usuario;
+    }
+
+    if (!user) {
+      return res.status(401).json({ message: "Credenciales incorrectas" });
+    }
+
+    // Verificar la contraseña (asegúrate de que se almacene de forma segura y utiliza bcrypt)
+    if (user.password !== password) {
+      return res.status(401).json({ message: "Credenciales incorrectas" });
+    }
+
+    // Redirigir al home correspondiente
+    if (alumnoRows.length > 0) {
+      res.json({ message: "Inicio de sesión exitoso como alumno", redirectTo: "agendar-cita" });
+    } else if (psicologoRows.length > 0) {
+      res.json({ message: "Inicio de sesión exitoso como psicólogo", redirectTo: "home-personal" });
+    }
+
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error interno del servidor" });
@@ -74,4 +90,4 @@ class LoginController {
   */
 }
 
-export const loginController = new LoginControlle
+export const loginController = new LoginController();

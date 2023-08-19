@@ -7,6 +7,8 @@ import citasRoutes from './routes/citas-routes';
 import loginRoutes from './routes/login-routes';
 import registroRoutes from './routes/registro-routes';
 import psicologosRoutes from './routes/psicologos-routes';
+import consultorioRoutes from './routes/consultorio-routes';
+import carrerasRoutes from './routes/carreras-routes';
 
 class Server{
     public app: Application;
@@ -29,6 +31,8 @@ class Server{
         this.app.use('/login', loginRoutes);
         this.app.use('/registro', registroRoutes);
         this.app.use('/psicologos', psicologosRoutes);
+        this.app.use('/consultorio',consultorioRoutes);
+        this.app.use('/carreras',carrerasRoutes);
     }
     start(): void{
         this.app.listen(this.app.get('port'), () => {

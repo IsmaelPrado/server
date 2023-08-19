@@ -1,5 +1,5 @@
 ### Consulta todas las citas
-GET http://localhost:3000/citas
+GET http://localhost:3000/carreras
 
 ### Consulta una cita
 GET http://localhost:3000/citas/1
